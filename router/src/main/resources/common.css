@@ -190,6 +190,14 @@ select {
     color: #333;
 }
 
+#container {
+    font-size: 1.0em;
+}
+
+.label {
+    font-size: 14px;
+}
+
 #output {
     position: absolute;
     width: 100%;
@@ -199,7 +207,6 @@ select {
     padding-left: 0.5em;
     padding-top: 0.2em;
     box-sizing: border-box;
-    font-size: 14px;
     font-family: Monaco, Menlo, 'Ubuntu Mono', Consolas, source-code-pro, monospace;
     text-rendering: optimizeLegibility;
 }
@@ -236,7 +243,7 @@ html, body, #spinner-holder {
 }
 
 .ace_editor {
-    font-size: 14px;
+    font-size: 1.0em;
     font-family: Monaco, Menlo, 'Ubuntu Mono', Consolas, source-code-pro, monospace;
     text-rendering: optimizeLegibility;
 }

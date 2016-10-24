@@ -45,6 +45,12 @@ class Client(editURL: String) {
   val fiddleSelectorDiv = dom.document.getElementById("fiddleSelectorDiv").asInstanceOf[HTMLElement]
   val fiddleSelector = dom.document.getElementById("fiddleSelector").asInstanceOf[HTMLSelectElement]
   val editLink = dom.document.getElementById("editLink").asInstanceOf[HTMLAnchorElement]
+  val fontIncreaseIcon = dom.document.getElementById("font-increase-icon").asInstanceOf[HTMLElement]
+  val fontDecreaseIcon = dom.document.getElementById("font-decrease-icon").asInstanceOf[HTMLElement]
+  val aceEditor = dom.document.querySelector(".ace_editor").asInstanceOf[HTMLElement]
+
+  val (minFontSize, maxFontSize, stepSize) = (0.5, 2.5, 0.1)
+  var fontSize = 1.0
 
   def exec(s: String) = {
     Client.clear()
@@ -169,6 +175,25 @@ class Client(editURL: String) {
       EventTracker.sendEvent("reset", "reset", currentSourceName)
       selectSource(currentSource)
       editor.focus()
+    }
+  }
+
+
+  if (fontIncreaseIcon != null) {
+    fontIncreaseIcon.onclick = (e: MouseEvent) => {
+      fontSize = Math.min(fontSize + stepSize, maxFontSize)
+      val style = s"${fontSize}em"
+      aceEditor.style.fontSize = style
+      Client.sendFrameCmd("fontIncrease", style)
+    }
+  }
+
+  if (fontDecreaseIcon != null) {
+    fontDecreaseIcon.onclick = (e: MouseEvent) => {
+      fontSize = Math.max(fontSize - stepSize, minFontSize)
+      val style = s"${fontSize}em"
+      aceEditor.style.fontSize = style
+      Client.sendFrameCmd("fontDecrease", style)
     }
   }
 

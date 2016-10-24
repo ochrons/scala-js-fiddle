@@ -37,7 +37,9 @@ object Static {
 
   val buttons = Seq(
     Button("run", "Run", "Ctrl/Cmd-Enter to run,\nShift-Ctrl/Cmd-Enter to run optimized"),
-    Button("reset", "Reset", "Reset back to original source")
+    Button("reset", "Reset", "Reset back to original source"),
+    Button("font-increase", "+A", "Increase font size"),
+    Button("font-decrease", "-A", "Decrease font size")
   )
 
   // store concatenated and hashed resource blobs
@@ -265,6 +267,12 @@ object Static {
               |      } finally {
               |        e.source.postMessage("evalCompleted", "*");
               |      }
+              |      break;
+              |    case "fontIncrease":
+              |      container.style.fontSize = msg.data;
+              |      break;
+              |    case "fontDecrease":
+              |      container.style.fontSize = msg.data;
               |      break;
               |  }
               |});
