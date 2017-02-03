@@ -1,6 +1,6 @@
 resolvers += "typesafe" at "http://repo.typesafe.com/typesafe/releases/"
 
-addSbtPlugin("org.scala-js" % "sbt-scalajs" % "0.6.13")
+addSbtPlugin("org.scala-js" % "sbt-scalajs" % "0.6.14")
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.1.1")
 
