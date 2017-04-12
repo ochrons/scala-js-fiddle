@@ -4,6 +4,7 @@ import fiddle.compiler.cache.{AutoCompleteCache, CompilerCache, LinkerCache}
 import fiddle.shared.ExtLib
 import org.scalajs.core.tools.io._
 import org.scalajs.core.tools.linker.Linker
+import org.scalajs.core.tools.linker.backend.{ModuleKind, OutputMode}
 import org.scalajs.core.tools.logging._
 import org.scalajs.core.tools.sem.Semantics
 import org.slf4j.LoggerFactory
@@ -242,9 +243,10 @@ class Compiler(libManager: LibraryManager, code: String) {
     try {
       val linker = LinkerCache.getOrUpdate(libs, Linker(
         semantics = semantics,
-        withSourceMap = false,
-        useClosureCompiler = fullOpt)
-      )
+        outputMode = OutputMode.Default,
+        moduleKind = ModuleKind.NoModule,
+        config = Linker.Config().withSourceMap(false).withClosureCompiler(fullOpt)
+      ))
       linker.link(libManager.linkerLibraries(extLibs) ++ userFiles, output, sjsLogger)
     } catch {
       case e: Throwable =>
