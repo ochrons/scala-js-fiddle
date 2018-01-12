@@ -57,7 +57,7 @@ class CompilerManager extends Actor with ActorLogging {
       version -> ((libUris.get(version), defaultLibs.get(version)) match {
         case (Some(uri), Some(versionLibs)) =>
           try {
-            log.debug(s"Loading libraries from $uri")
+            log.debug(s"Loading libraries from $uri for scala version $version")
             val data = if (uri.startsWith("file:")) {
               // load from file system
               scala.io.Source.fromFile(uri.drop(5), "UTF-8").mkString
@@ -75,8 +75,8 @@ class CompilerManager extends Actor with ActorLogging {
             (extLibs ++ versionLibs).map(ExtLib(_))
           } catch {
             case e: Throwable =>
-              log.error(e, s"Unable to load libraries")
-              Nil
+              log.error(e, s"Unable to load external libraries, only using default ones.")
+              versionLibs.map(ExtLib(_))
           }
         case _ =>
           Nil
@@ -104,7 +104,7 @@ class CompilerManager extends Actor with ActorLogging {
     log.debug(s"Selecting compiler for Scala $scalaVersion and libs $libs")
     // check that all libs are supported
     val versionLibs = currentLibs.getOrElse(scalaVersion, Vector.empty)
-    // log.debug(s"Libraries:\n$versionLibs")
+    log.debug(s"Libraries:\n$versionLibs")
     libs.foreach(lib => if (!versionLibs.contains(lib)) throw new IllegalArgumentException(s"Library $lib is not supported"))
     // select the best available compiler server based on:
     // 1) time of last activity
