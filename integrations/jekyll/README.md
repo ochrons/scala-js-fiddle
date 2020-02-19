@@ -21,12 +21,12 @@ plugins:
 
 [sbt-microsites](https://47deg.github.io/sbt-microsites/) is a plugin for sbt that helps Scala developers build and publish 
 documentation for their project. It's based on Jekyll, so you can use this same plugin. Unlike regular Jekyll, you cannot use 
-`gem` to install the plugin, but you must manually copy the `jekyll-scalafiddle.rb` file under a `plugins` directory in your 
-microsite project.
+`gem` to install the plugin, but you must manually copy the `jekyll-scalafiddle.rb` file under a `_plugins` directory in your 
+microsite project (eg in `docs/` by default for an mdoc project).
 
 ```bash
-$ mkdir plugins
-$ cd plugins
+$ mkdir _plugins
+$ cd _plugins
 $ curl -o jekyll-scalafiddle.rb https://raw.githubusercontent.com/scalafiddle/scalafiddle-core/master/integrations/jekyll/lib/jekyll-scalafiddle.rb
 ```
 
